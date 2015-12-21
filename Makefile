@@ -36,12 +36,10 @@ default: $(PROG)
 
 ARCHFLAGS_EXE ?= ./arch_flags
 
-$(ARCHFLAGS_EXE) : arch_flags.c
-	$(CC) arch_flags.c -o $(ARCHFLAGS_EXE)
 
 INCLUDES += -Isrc
 
-ARCHFLAGS ?= $(shell $(CC) arch_flags.c -o $(ARCHFLAGS_EXE) && $(ARCHFLAGS_EXE))
+ARCHFLAGS ?= $(shell $(ARCHFLAGS_EXE))
 ARCHFLAGS := $(ARCHFLAGS)
 
 OPTFLAGS  ?= -g -O
@@ -127,7 +125,7 @@ $(info $(MSG_PREFIX)Using CFLAGS=$(CFLAGS))
 CXXFLAGS += $(CFLAGS)
 
 SRC  :=
-GARBAGE := core core.* *.stackdump ./tags $(PROG) arch_flags
+GARBAGE := core core.* *.stackdump ./tags $(PROG)
 
 .PHONY: all default tags clean docs cmake_info
 
