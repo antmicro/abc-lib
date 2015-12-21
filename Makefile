@@ -38,6 +38,10 @@ ARCHFLAGS_EXE ?= ./arch_flags
 
 
 INCLUDES += -Isrc
+INCLUDES += -I$(LIBREADLINE_INSTALL_PATH)/include
+READLINE_LIB_DIR=$(LIBREADLINE_INSTALL_PATH)/lib
+NCURSES_LIB_DIR=$(LIBNCURSES_INSTALL_PATH)/lib
+LDFLAGS=-L$(READLINE_LIB_DIR) -L$(NCURSES_LIB_DIR) -Wl,-rpath=$(READLINE_LIB_DIR):$(NCURSES_LIB_DIR)
 
 ARCHFLAGS ?= $(shell $(ARCHFLAGS_EXE))
 ARCHFLAGS := $(ARCHFLAGS)
@@ -182,7 +186,7 @@ tags:
 
 $(PROG): $(OBJ)
 	@echo "$(MSG_PREFIX)\`\` Building binary:" $(notdir $@)
-	$(VERBOSE)$(LD) -o $@ $^ $(LIBS)
+	$(VERBOSE)$(LD) -o $@ $(LDFLAGS) $^ $(LIBS)
 
 lib$(PROG).a: $(OBJ)
 	@echo "$(MSG_PREFIX)\`\` Linking:" $(notdir $@)
