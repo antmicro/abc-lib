@@ -1,6 +1,6 @@
 
-CC   := gcc
-CXX  := g++
+CC   := $(CC_PREFIX)gcc
+CXX  := $(CC_PREFIX)g++
 LD   := $(CXX)
 
 MSG_PREFIX ?=
